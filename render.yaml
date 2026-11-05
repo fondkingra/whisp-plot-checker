@@ -2,6 +2,7 @@ services:
   - type: web
     name: whisp-plot-checker-backend
     runtime: node
+    plan: free
     rootDir: server
     buildCommand: npm install
     startCommand: node index.js
