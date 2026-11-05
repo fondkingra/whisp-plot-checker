@@ -1,0 +1,185 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, sans-serif; background: #f4f6f3; }
+
+.app { max-width: 900px; margin: 0 auto; padding: 1.5rem; }
+
+.header h1 { margin: 0 0 0.25rem; font-size: 1.6rem; color: #1b4332; }
+.header p { margin: 0 0 1rem; color: #52606d; }
+
+.panel {
+  background: white;
+  border: 1px solid #e1e6e1;
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.panel-title {
+  font-weight: 600;
+  color: #1b4332;
+  margin-bottom: 0.7rem;
+  font-size: 0.95rem;
+}
+
+.panel-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.panel-row button,
+.panel-row select {
+  padding: 0.5rem 0.9rem;
+  border: 1px solid #ccd5ce;
+  border-radius: 6px;
+  background: white;
+  color: #1b2b22;
+  color-scheme: light;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.panel-row button:disabled { opacity: 0.5; cursor: not-allowed; }
+.panel-row button.primary { background: #2a9d8f; color: white; border-color: #2a9d8f; font-weight: 600; }
+.panel-row button.danger { background: white; color: #d62828; border-color: #f5a3a3; }
+.panel-row button.danger:hover:not(:disabled) { background: #fde8e8; }
+
+.map-actions { margin-top: 0.75rem; }
+
+.coord-input, .crop-select {
+  padding: 0.5rem 0.7rem;
+  border: 1px solid #ccd5ce;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  min-width: 220px;
+  flex: 1;
+  background: white;
+  color: #1b2b22;
+  color-scheme: light;
+}
+
+.coord-input::placeholder { color: #8a948e; }
+
+.point-count { margin-left: auto; color: #52606d; font-size: 0.85rem; }
+
+.map-wrap { border: 1px solid #ccd5ce; border-radius: 8px; overflow: hidden; }
+
+.error-box {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: #fde8e8;
+  border: 1px solid #f5a3a3;
+  border-radius: 6px;
+  color: #9b1c1c;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.result-box {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: white;
+  border: 1px solid #ccd5ce;
+  border-radius: 8px;
+}
+
+.result-box pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 0.85rem;
+  max-height: 400px;
+  overflow: auto;
+}
+
+.compliance-card {
+  margin-top: 1rem;
+  border: 2px solid;
+  border-radius: 10px;
+  overflow: hidden;
+  background: white;
+}
+
+.compliance-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 1.2rem;
+  color: white;
+}
+
+.compliance-icon { font-size: 1.5rem; }
+.compliance-label { font-size: 1.15rem; font-weight: 600; }
+.compliance-sublabel { font-size: 0.85rem; opacity: 0.9; }
+
+.compliance-body { padding: 1.2rem; }
+
+.compliance-meta {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.compliance-meta > div {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.85rem;
+}
+
+.compliance-meta strong { color: #52606d; font-size: 0.75rem; text-transform: uppercase; }
+.compliance-meta span { font-size: 1rem; color: #1b4332; }
+
+.risk-badges {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.risk-badge {
+  padding: 0.3rem 0.7rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  background: #e9ecef;
+  color: #495057;
+}
+
+.risk-badge.risk-low { background: #d4f4dd; color: #1b4332; }
+.risk-badge.risk-high { background: #fde8e8; color: #9b1c1c; }
+.risk-badge.risk-more_info_needed { background: #fff3cd; color: #7a5c00; }
+.risk-badge-selected { outline: 2px solid currentColor; font-weight: 700; }
+
+.indicators { font-size: 0.9rem; }
+.indicators ul { margin: 0.4rem 0 0; padding-left: 1.2rem; color: #9b1c1c; }
+.indicators-clean { color: #2a9d8f; }
+
+.raw-details {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: #52606d;
+}
+
+.raw-details pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 400px;
+  overflow: auto;
+  background: white;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #ccd5ce;
+}
+
+@media (max-width: 640px) {
+  .app { padding: 1rem; }
+  .header h1 { font-size: 1.3rem; }
+  .header p { font-size: 0.9rem; }
+  .panel { padding: 0.9rem; }
+  .coord-input, .crop-select { min-width: 100%; }
+  .panel-row button { flex: 1 1 auto; }
+  .map-wrap .leaflet-container { height: 360px !important; }
+  .compliance-meta { gap: 1rem; }
+  .point-count { margin-left: 0; width: 100%; }
+}
