@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: whisp-plot-checker-backend
+    runtime: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: node index.js
+    envVars:
+      - key: WHISP_API_KEY
+        sync: false
+      - key: PORT
+        value: 10000
