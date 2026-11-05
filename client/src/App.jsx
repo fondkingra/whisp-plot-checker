@@ -4,7 +4,7 @@ import axios from "axios";
 import "leaflet/dist/leaflet.css";
 import "./App.css";
 
-const BACKEND_URL = "http://localhost:4001";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:4001";
 const DEFAULT_CENTER = [0.3, 37.6]; // rough coffee-growing region (Kenya) fallback
 const MAX_ZOOM = 20;
 
