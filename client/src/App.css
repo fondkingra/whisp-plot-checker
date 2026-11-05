@@ -65,6 +65,13 @@ body { margin: 0; font-family: system-ui, sans-serif; background: #f4f6f3; }
 
 .map-wrap { border: 1px solid #ccd5ce; border-radius: 8px; overflow: hidden; }
 
+.search-pin-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+  text-align: center;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.4));
+}
+
 .imagery-notice {
   margin-top: 0.6rem;
   padding: 0.6rem 0.9rem;

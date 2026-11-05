@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
-import { MapContainer, TileLayer, Polygon, CircleMarker, useMapEvents, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, Polygon, CircleMarker, Marker, useMapEvents, useMap } from "react-leaflet";
+import { divIcon } from "leaflet";
 import axios from "axios";
 import "leaflet/dist/leaflet.css";
 import "./App.css";
@@ -7,6 +8,13 @@ import "./App.css";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:4001";
 const DEFAULT_CENTER = [0.3, 37.6]; // rough coffee-growing region (Kenya) fallback
 const MAX_ZOOM = 18;
+
+const SEARCH_PIN_ICON = divIcon({
+  className: "search-pin-icon",
+  html: "📍",
+  iconSize: [28, 28],
+  iconAnchor: [14, 28],
+});
 
 const CROP_TYPES = {
   pcrop: { label: "Perennial crop", examples: "coffee, cocoa, rubber, oil palm", riskField: "risk_pcrop" },
@@ -181,9 +189,11 @@ export default function App() {
   const [farmerName, setFarmerName] = useState("");
   const [cropType, setCropType] = useState("pcrop");
   const [imageryMissing, setImageryMissing] = useState(false);
+  const [searchPin, setSearchPin] = useState(null);
 
   const addPoint = useCallback((pt) => {
     setPoints((prev) => [...prev, pt]);
+    setSearchPin(null);
   }, []);
 
   const undoPoint = () => setPoints((prev) => prev.slice(0, -1));
@@ -201,6 +211,7 @@ export default function App() {
       return;
     }
     setCenter(parsed);
+    setSearchPin(parsed);
     setError(null);
   };
 
@@ -212,7 +223,9 @@ export default function App() {
     setLocating(true);
     navigator.geolocation.getCurrentPosition(
       (pos) => {
-        setCenter([pos.coords.latitude, pos.coords.longitude]);
+        const pt = [pos.coords.latitude, pos.coords.longitude];
+        setCenter(pt);
+        setSearchPin(pt);
         setLocating(false);
       },
       (err) => {
@@ -301,6 +314,7 @@ export default function App() {
             />
             <Recenter center={center} />
             <ClickCollector onPoint={addPoint} />
+            {searchPin && <Marker position={searchPin} icon={SEARCH_PIN_ICON} />}
             {points.map((pt, i) => (
               <CircleMarker key={i} center={pt} radius={6} pathOptions={{ color: "#ffb703", fillColor: "#ffb703", fillOpacity: 1 }} />
             ))}
