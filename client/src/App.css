@@ -65,6 +65,16 @@ body { margin: 0; font-family: system-ui, sans-serif; background: #f4f6f3; }
 
 .map-wrap { border: 1px solid #ccd5ce; border-radius: 8px; overflow: hidden; }
 
+.imagery-notice {
+  margin-top: 0.6rem;
+  padding: 0.6rem 0.9rem;
+  background: #fff3cd;
+  border: 1px solid #f0d58c;
+  border-radius: 6px;
+  color: #7a5c00;
+  font-size: 0.85rem;
+}
+
 .error-box {
   margin-top: 1rem;
   padding: 0.75rem;

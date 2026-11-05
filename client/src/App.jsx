@@ -6,7 +6,7 @@ import "./App.css";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:4001";
 const DEFAULT_CENTER = [0.3, 37.6]; // rough coffee-growing region (Kenya) fallback
-const MAX_ZOOM = 20;
+const MAX_ZOOM = 18;
 
 const CROP_TYPES = {
   pcrop: { label: "Perennial crop", examples: "coffee, cocoa, rubber, oil palm", riskField: "risk_pcrop" },
@@ -180,6 +180,7 @@ export default function App() {
   const [coordInput, setCoordInput] = useState("");
   const [farmerName, setFarmerName] = useState("");
   const [cropType, setCropType] = useState("pcrop");
+  const [imageryMissing, setImageryMissing] = useState(false);
 
   const addPoint = useCallback((pt) => {
     setPoints((prev) => [...prev, pt]);
@@ -295,7 +296,8 @@ export default function App() {
               url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
               attribution="Tiles &copy; Esri"
               maxZoom={MAX_ZOOM}
-              maxNativeZoom={19}
+              maxNativeZoom={17}
+              eventHandlers={{ tileerror: () => setImageryMissing(true), tileload: () => setImageryMissing(false) }}
             />
             <Recenter center={center} />
             <ClickCollector onPoint={addPoint} />
@@ -307,6 +309,12 @@ export default function App() {
             )}
           </MapContainer>
         </div>
+
+        {imageryMissing && (
+          <div className="imagery-notice">
+            High-res satellite imagery isn't available at this zoom for this location — zoom out a bit, or draw at the current detail level.
+          </div>
+        )}
 
         <div className="panel-row map-actions">
           <button onClick={undoPoint} disabled={points.length === 0}>
